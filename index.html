@@ -59,6 +59,9 @@
             .aqua{
                 background-color: aqua;
             }
+            .white{
+                background-color: white;
+            }
 
 
             .canvas{
@@ -75,6 +78,7 @@
 
             }
             .cell{
+                box-sizing: content-box;
                 border: 1px solid gray;
                 height: 3rem;
                 flex-grow: 1;
@@ -94,10 +98,10 @@
             <div class="control">
                 <h2>Controls</h2>
                 <div class="actions">
-                    <div class="action">Add a Row</div>
-                    <div class="action">Remove a Row</div>
-                    <div class="action">Add a Column</div>
-                    <div class="action">Remove a Column</div>
+                    <div class="action" id ="add-row">Add a Row</div>
+                    <div class="action" id ="remove-row">Remove a Row</div>
+                    <div class="action" id = "add-col">Add a Column</div>
+                    <div class="action" id ="remove-col">Remove a Column</div>
                 </div>
                 <div class="colors">
                     <div class="swatch red"></div>
@@ -116,32 +120,63 @@
             const container = document.querySelector('#grid')
             const colors = document.querySelector(".colors")
             const cells = document.querySelector("#grid")
-            
-            const grid = []   
+            const actions = document.querySelector(".actions")
+
+            const grid = []
             for(let i=0; i<3; i++){
-                const row = (new Array(3)).fill('aqua');
+                const row = (new Array(3)).fill('white');
                 grid.push(row);
+
             }
-            console
-            let html = '';
-            grid.forEach( row => {
+            localStorage.setItem('data', grid);
+
+
+
+            const render =() =>{
+                let html = '';
+                grid.forEach( row => {
                 html += `<div class ='row'>${row.map(color => `<div class='cell ${color}'></div>`).join('')}</div>`
-            })
+                })
             container.innerHTML = html;
+            }
+
+            render();
+
 
             let currentColor = "";
             colors.addEventListener("click", (ev)=>{
                 currentColor = ev.target.classList[1]
             })
-            
+
             cells.addEventListener("click", (ev) => {
                     const currentCell = ev.target
+                    const currentRow = currentCell.parentNode
+                    const currentGrid = currentRow.parentNode
+                    const rowIdx = [...currentGrid.children].indexOf(currentRow)
+                    const cellIdx = [...currentRow.children].indexOf(currentCell)
                     if(currentColor){
-                        currentCell.classList = `cell ${currentColor}`
-                    } 
+                        grid[rowIdx][cellIdx]= currentColor
+                        localStorage.setItem('data', grid);
+                        console.log(currentCell)
+                        render();
+                    }
                 })
-            
-        </script>
+            actions.addEventListener("click", (ev) => {
+                const currentAction = ev.target.id
+                console.log(currentAction)
+                if (currentAction === 'add-row'){
+                    addRow();
+                }
+            })
 
+            const addRow = () => {
+                const currentCol = grid[0].length
+                console.log(currentCol)
+                const newRow = (new Array(currentCol)).fill('white');
+                grid.push(newRow);
+                console.log(grid);
+                render();
+            }
+        </script>
     </body>
 </html>
