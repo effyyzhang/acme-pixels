@@ -114,7 +114,10 @@
         </div>
         <script>
             const container = document.querySelector('#grid')
-            const grid = []
+            const colors = document.querySelector(".colors")
+            const cells = document.querySelector("#grid")
+            
+            const grid = []   
             for(let i=0; i<3; i++){
                 const row = (new Array(3)).fill('aqua');
                 grid.push(row);
@@ -125,6 +128,19 @@
                 html += `<div class ='row'>${row.map(color => `<div class='cell ${color}'></div>`).join('')}</div>`
             })
             container.innerHTML = html;
+
+            let currentColor = "";
+            colors.addEventListener("click", (ev)=>{
+                currentColor = ev.target.classList[1]
+            })
+            
+            cells.addEventListener("click", (ev) => {
+                    const currentCell = ev.target
+                    if(currentColor){
+                        currentCell.classList = `cell ${currentColor}`
+                    } 
+                })
+            
         </script>
 
     </body>
