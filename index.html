@@ -162,17 +162,55 @@
                     }
                 })
             actions.addEventListener("click", (ev) => {
-                const currentAction = ev.target.id
-                const currentCol = grid[0].length
+                const currentAction = ev.target.id;
+                console.log(currentAction)
+                const currentCol = grid[0]? grid[0].length:1;
+            
                 if (currentAction === 'add-row'){
                     addRow(currentCol);
+                }
+                if(currentAction === 'add-col'){
+                    addCol();
+                }
+                if(currentAction === "remove-row"){
+                    removeRow();
+                }
+
+                if(currentAction === "remove-col"){
+                    removeCol();
                 }
                 render();
             })
 
             const addRow = (col) => {
-                const newRow = (new Array(col)).fill('white');
-                grid.push(newRow);
+                if(col){                
+                    const newRow = (new Array(col)).fill('white'); 
+                    grid.push(newRow);  
+                } else {
+                    const newRow = (new Array(1)).fill('white');
+                    grid.push(newRow);
+                }
+                 
+            }
+
+            const addCol = () => {
+                grid.forEach(row => {
+                    row.push('white')
+                }
+                )
+            }
+            
+            const removeRow = () => {
+                if (grid.length > 0){
+                    grid.pop()
+                }
+              
+            }
+
+            const removeCol = () => {
+                grid.forEach(row =>{
+                    row.pop()
+                })
             }
         </script>
     </body>
