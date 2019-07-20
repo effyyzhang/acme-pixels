@@ -163,19 +163,16 @@
                 })
             actions.addEventListener("click", (ev) => {
                 const currentAction = ev.target.id
-                console.log(currentAction)
+                const currentCol = grid[0].length
                 if (currentAction === 'add-row'){
-                    addRow();
+                    addRow(currentCol);
                 }
+                render();
             })
 
-            const addRow = () => {
-                const currentCol = grid[0].length
-                console.log(currentCol)
-                const newRow = (new Array(currentCol)).fill('white');
+            const addRow = (col) => {
+                const newRow = (new Array(col)).fill('white');
                 grid.push(newRow);
-                console.log(grid);
-                render();
             }
         </script>
     </body>
