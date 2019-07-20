@@ -19,7 +19,7 @@
             .control{
                 flex-grow: 1;
                 padding: 2rem;
-            }   
+            }
 
             .actions{
                 width: 100%;
@@ -56,6 +56,9 @@
             .green{
                 background-color: green;
             }
+            .aqua{
+                background-color: aqua;
+            }
 
 
             .canvas{
@@ -63,6 +66,19 @@
                 padding: 2rem;
             }
 
+            .grid{
+                display: flex;
+            }
+
+            .row{
+                display: flex;
+
+            }
+            .cell{
+                border: 1px solid gray;
+                height: 3rem;
+                flex-grow: 1;
+            }
 
 
 
@@ -88,7 +104,7 @@
                     <div class="swatch blue"></div>
                     <div class="swatch green"></div>
                     <div class="swatch yellow"></div>
-                    <div class="swatch red"></div>
+                    <div class="swatch aqua"></div>
                 </div>
             </div>
             <div class="canvas">
@@ -97,10 +113,19 @@
             </div>
         </div>
         <script>
+            const container = document.querySelector('#grid')
             const grid = []
-
-
+            for(let i=0; i<3; i++){
+                const row = (new Array(3)).fill('aqua');
+                grid.push(row);
+            }
+            console
+            let html = '';
+            grid.forEach( row => {
+                html += `<div class ='row'>${row.map(color => `<div class='cell ${color}'></div>`).join('')}</div>`
+            })
+            container.innerHTML = html;
         </script>
-        
+
     </body>
 </html>
