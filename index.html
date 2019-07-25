@@ -26,12 +26,20 @@
                 text-align: center;
                 border-top: 1px solid gray;
             }
+
+
+
             .action{
                 padding: 1rem;
                 border-bottom: 1px solid gray;
                 vertical-align: center;
                 font-size: 1.2rem;
             }
+
+            .action:hover {
+                background-color: lightgray;
+            }
+
 
             .colors{
                 display: flex;
@@ -41,7 +49,8 @@
             .swatch{
                 width: 3rem;
                 height: 3rem;
-                border: 1px solid gray;
+                border: 1px solid gray ;
+                transform: scale(1.1);
             }
 
             .red{
@@ -122,6 +131,9 @@
             const cells = document.querySelector("#grid")
             const actions = document.querySelector(".actions")
 
+            colors.style.cursor = 'pointer';
+            cells.style.cursor = 'pointer';
+
             const grid = []
             for(let i=0; i<3; i++){
                 const row = (new Array(3)).fill('white');
@@ -165,7 +177,7 @@
                 const currentAction = ev.target.id;
                 console.log(currentAction)
                 const currentCol = grid[0]? grid[0].length:1;
-            
+
                 if (currentAction === 'add-row'){
                     addRow(currentCol);
                 }
@@ -183,14 +195,14 @@
             })
 
             const addRow = (col) => {
-                if(col){                
-                    const newRow = (new Array(col)).fill('white'); 
-                    grid.push(newRow);  
+                if(col){
+                    const newRow = (new Array(col)).fill('white');
+                    grid.push(newRow);
                 } else {
                     const newRow = (new Array(1)).fill('white');
                     grid.push(newRow);
                 }
-                 
+
             }
 
             const addCol = () => {
@@ -199,12 +211,12 @@
                 }
                 )
             }
-            
+
             const removeRow = () => {
                 if (grid.length > 0){
                     grid.pop()
                 }
-              
+
             }
 
             const removeCol = () => {
